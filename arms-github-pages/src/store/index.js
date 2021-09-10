@@ -23,7 +23,11 @@ export default createStore({
                           'end': sampling_event.timespan_end,
                           'nfiles': sampling_event.files.length,
                           'nseq': sampling_event.sequences.length,
-                          'description':sampling_event.description
+                          'description':sampling_event.description,
+                          'files': sampling_event.files,
+                          'sequences': sampling_event.sequences,
+                          'habitat': sampling_event.habitat,
+                          'observations': sampling_event.observations
                       }
                       events.push(currevent);
                   }

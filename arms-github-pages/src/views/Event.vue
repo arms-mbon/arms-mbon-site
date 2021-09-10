@@ -70,8 +70,8 @@
         },
         methods: {
             getallevents () {
-            store.commit('allEvents')
-        },
+                store.commit('allEvents')
+            },
         },
     }
 </script>

@@ -8,7 +8,7 @@
 </template>
 
 <script>
-    var pathSegmentsToKeep = 0;
+    var pathSegmentsToKeep = 1;
     var l = window.location;
     l.replace(
     l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +

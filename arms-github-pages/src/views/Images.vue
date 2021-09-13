@@ -1,12 +1,14 @@
 <template>
-<SearchPage>
+<div>
+    <br>
+    <SearchPage>
         <template v-slot:searchui>
             <h1>To insert search functionality later</h1>
         </template>
         <template v-slot:maindata>
-            <div>
+            <div style="height: 870px;overflow: scroll;">
                 <table class='table table-striped'>
-                    <thead>
+                    <thead style="position: sticky;top: 0" class="table-dark">
                         <tr>
                             <th>
                                 id event
@@ -44,6 +46,9 @@
             </div>
         </template>
     </SearchPage>
+    <br>
+</div>
+
 </template>
 
 <script>
@@ -68,6 +73,23 @@ import SearchPage from '@/components/SearchPage.vue'
           getallevents () {
               store.commit('allEvents')
           },
+          globalsearch(queryroute) {
+              console.log(queryroute);
+              store.commit('globalsearch', {queryroute}) 
+              return store.state.allevents
+          },
       },
+      watch: {
+            $route() {
+                this.globalsearch(this.$route.query)
+            }
+        }
   }
 </script>
+
+<style scoped>
+    .thead th{
+        position:sticky;
+        top: 0 ;
+    }
+</style>

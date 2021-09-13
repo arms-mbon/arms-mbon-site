@@ -52,6 +52,10 @@ const routes = [
     component: () => import('@/views/Events.vue')
   },
   {
+    path: '/sequences/:id',
+    component: () => import('@/views/Sequence.vue')
+  },
+  {
     path: "/:catchAll(.*)",
     name: 'Not Found',
     component: () => import(/* webpackChunkName: "contact" */ '../views/NotFound.vue'),

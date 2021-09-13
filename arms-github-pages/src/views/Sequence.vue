@@ -1,7 +1,7 @@
 <template>
     <div>
-        <h2>Event: {{$route.params.id}}</h2>
-        <p>{{event}}</p>
+        <h2>Sequence: {{$route.params.id}}</h2>
+        <p>{{sequence}}</p>
     </div>
 </template>
 
@@ -12,8 +12,16 @@
             destinationId(){
                 return parseInt(this.$route.params.id)
             },
-            
-            event(){
+            sequence(){
+                var allevents = store.state.allevents
+                for (let i = 0; i < allevents.length; i++) {
+                    var sequencee = allevents[i]['sequences'].find(sequence => sequence.id === this.destinationId)
+                    if(sequencee != null){
+                        if (Object.keys(sequencee).length != 0) {
+                            return allevents[i]['sequences'].find(sequence => sequence.id === this.destinationId)
+                        }
+                    }
+                }
                 return store.state.allevents.find(event => event.id === this.destinationId)
             },
             allevents() {

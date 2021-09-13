@@ -28,10 +28,10 @@
             </ul>
           </li>
         </ul>
-        <form class="d-flex">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
+        <div class="d-flex">
+          <input class="form-control me-2" type="search" v-model="globalsearch" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success" @click="changeQueryString" type="submit">Search</button>
+        </div>
       </div>
     </div>
   </nav>
@@ -40,7 +40,12 @@
 
 <script>
 export default {
-  name: 'NavBar'
+  name: 'NavBar',
+  methods: {
+      changeQueryString() {
+          this.$router.replace({ query: {globalsearch: this.globalsearch.toLowerCase() } });
+      }
+    }
 }
 </script>
 

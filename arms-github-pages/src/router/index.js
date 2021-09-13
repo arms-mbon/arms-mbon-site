@@ -50,6 +50,14 @@ const routes = [
   {
     path: '/event/:id',
     component: () => import('@/views/Events.vue')
+  },
+  {
+    path: "/:catchAll(.*)",
+    name: 'Not Found',
+    component: () => import(/* webpackChunkName: "contact" */ '../views/NotFound.vue'),
+    meta: {
+      requiresAuth: false
+    }
   }
 ]
 

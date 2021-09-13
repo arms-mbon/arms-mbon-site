@@ -22,10 +22,11 @@ export default {
 <style scoped>
 .container {
     display: flex;
+    max-width: 80%;
 }
 
 .container__sidebar {
-    width: 20%;
+    width: 22%;
     border-right: rgb(245, 245, 245) solid 2px;
 }
 

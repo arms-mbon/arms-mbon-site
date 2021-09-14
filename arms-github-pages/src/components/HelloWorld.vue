@@ -3,7 +3,7 @@
     <br>
     <div class="container">
         <br>
-        <img alt="Vue logo" src="../assets/ARMSmainpiccy.png">
+        <img alt="ARMS logo" src="../assets/ARMSmainpiccy.png" class="center">
         <h1>{{ msg }}</h1>
         <p>The European ARMS programme (ARMS-MBON) is a network of Autonomous Reef Monitoring Structures (ARMS) placed in the vicinity of marine stations, ports, marinas, and Long-Term Ecological Research (LTER) sites distributed over Europe and polar regions. The aim of ARMS-MBON is to assess the status of, and changes in, hard-bottom communities of near-coast environments, using genetic methods supplemented with image analysis and visual inspection methods.&nbsp;ARMS-MBON is part of GEO BONs<a href="https://marinebon.org/" target="_blank" rel="noopener noreferrer"> Marine Biodiversity Observation Network</a> (MBON).</p>
         <p>ARMS units are passive monitoring systems originally developed during the <a href="https://oceanservice.noaa.gov/facts/marine-census.html" target="_blank" rel="noopener noreferrer">Census of Marine Life</a> project for the collection of marine fauna on and near the sea floor. Similarly to settlement plates, the ARMS units are stacks of plates that mimic the complex structure of the sea bottom. They are deployed on marine substrates and colonised by marine species, and after a period of time they are recovered by a team and taken apart to see who moved in.&nbsp;&nbsp;</p>
@@ -11,7 +11,7 @@
         <p>The project is primarily funded through the Joint Research Activity (JRA1) of ASSEMBLE Plus, with financial contributions from the <a href="https://www.havochvatten.se/en/swam/our-organization/about-swam.html" target="_blank" rel="noopener noreferrer">Swedish Agency for Marine and Water Management</a>, the Interreg project <a href="https://northsearegion.eu/geans/" target="_blank" rel="noopener noreferrer">GEANS</a> and with considerable in-kind contributions by the participating institutes. The project is an activity of the Genomic observatories network with relations to the European Marine Biological Resource Center (<a href="http://www.embrc.eu/" target="_blank" rel="noopener noreferrer">EMBRC</a>).</p>
         <h1>What do we do?</h1>
         <p>Starting with a test phase in 2018, ARMS-MBON has been&nbsp;working&nbsp;with annual cycles of deployment-retrieval, with each cycle having a design, deployment, and analysis phase. ARMS units are deployed for periods of a few to many months, depending on the local conditions. The network has a current coverage of close to 20 observatories along the European coastline and including a number of arctic stations. The number of deployments and deployment locations is gradually increasing year after year.</p>
-        <p><img alt="" src="http://www.assembleplus.eu/sites/assembleplus.eu/files/public/resize/ARMS/ARMS-MBON_sites-1429x450.png" style="width: 1111px; height: 350px;"></p>
+        <p><img alt="" src="http://www.assembleplus.eu/sites/assembleplus.eu/files/public/resize/ARMS/ARMS-MBON_sites-1429x450.png" style="width: 90%; height: 22%;"></p>
         <p>ARMS-MBON partners buy, assemble, deploy, retrieve the ARMS units, process them for motile and sessile fractions, and send the samples to HCMR for sequencing. Photos of the plates are also taken. All data and metadata are collected in the data management platform, <a href="https://plutof.ut.ee/#/" target="_blank" rel="noopener noreferrer">PlutoF</a>, to be processed, coordinated, quality controlled, and then analysed&nbsp;and published.&nbsp;</p>
         <h2>Partners</h2>
         <p>Department of Marine Sciences, University of Gothenburg, Sweden<br>
@@ -70,5 +70,11 @@ ul {
 li {
   display: inline-block;
   margin: 0 10px;
+}
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
 }
 </style>

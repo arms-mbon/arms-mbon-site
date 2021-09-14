@@ -9,7 +9,7 @@
                 <thead style="position: sticky;top: 0" class="table-dark">
                     <tr>
                         <th>
-                            id
+                            event id
                         </th>
                         <th>
                             description

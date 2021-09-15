@@ -43,3 +43,10 @@
         }
     }
 </script>
+
+<style scoped>
+    .thead th{
+        position:sticky;
+        top: 0 ;
+    }
+</style>

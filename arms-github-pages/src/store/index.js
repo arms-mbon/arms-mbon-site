@@ -5,11 +5,12 @@ export default createStore({
   state: {
     alldata:sourceData,
     allevents:[],
-    allallevents:[]
+    allallevents:[],
+    imagedatad:[]
   },
   mutations: { //only synchronous code  
       allEvents(state) {
-        if (state.allevents.length === 0) {
+        if (state.allevents.length == 0 || state.allallevents.length == 0) {
           //  block of code to be executed if the condition is true
           const events = [];
           for(var i = 0; i < state.alldata.sampling_areas.length; i++) {
@@ -53,14 +54,12 @@ export default createStore({
             newevents.push(state.allevents[i])
           }
         }
-        console.log(newevents);
         state.allevents = newevents;
         return state.allevents
       } 
     },
     globalsearch(state, querydata) {
       localStorage.setItem('querydata', querydata);
-      console.log(querydata.queryroute.globalsearch);
       var newevents = [];
       if (querydata.queryroute.globalsearch == '' || querydata.queryroute.globalsearch == null) {
         state.allevents = state.allallevents;
@@ -75,13 +74,38 @@ export default createStore({
             newevents.push(state.allevents[i])
           }
         }
-        console.log(newevents);
         state.allevents = newevents;
         return state.allevents
-      } 
+      }
+    },
+    getimagesdata(state,imagesids){
+      localStorage.setItem('imageids', imagesids);
+      var images_data = [];
+      var tosearchin = "";
+      if(state.allevents == '' || state.allevents == null){
+        tosearchin = state.allallevents;
+      }else{
+        tosearchin = state.allevents;
+      }
+      for (let i = 0; i < imagesids.imagesids.checkedboxes.length; i++) {
+        //search all events for the image id
+        for (let y = 0; y < tosearchin.length; y++) {
+          for (let z = 0; z < tosearchin[y]['files'].length; z++) {
+            if(tosearchin[y]['files'][z]['id'] == imagesids.imagesids.checkedboxes[i]){
+              images_data.push({'identifier':tosearchin[y].files[z].identifier,'url':tosearchin[y].files[z].download_link})
+            }
+          }
+        }
+      }
+      console.log(images_data);
+      state.imagedatad = images_data
+      return state.imagedatad
     }
   },
   actions: { // actions are methods that cant change data in a state but can have ansync code in it
+    downloadimagespost(context,imagesids){
+      context.commit('getimagesdata', {imagesids})
+    }
   },
   modules: {
   },

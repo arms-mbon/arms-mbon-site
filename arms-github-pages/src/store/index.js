@@ -6,7 +6,8 @@ export default createStore({
     alldata:sourceData,
     allevents:[],
     allallevents:[],
-    imagedatad:[]
+    imagedatad:[],
+    generalinfoevent:{}
   },
   mutations: { //only synchronous code  
       allEvents(state) {
@@ -40,6 +41,23 @@ export default createStore({
           return events
         }
         return state.allevents
+    },
+    generalinfo(state, eventid){
+      localStorage.setItem('eventid', eventid);
+      console.log(eventid);
+      for(var i = 0; i < state.alldata.sampling_areas.length; i++) {
+        var obj = state.alldata.sampling_areas[i];
+        for(var y = 0; y < obj.child_areas.length; y++) {
+          var childarea = obj.child_areas[y];
+          for(var z = 0; z < childarea.sampling_events.length; z++) {
+            var sampling_event = childarea.sampling_events[z];
+            if(sampling_event.id == eventid.destinationId){
+              state.generalinfoevent = childarea
+              return;
+            }
+          }
+        }
+      }
     },
     searchevents(state, querydata) {
       localStorage.setItem('querydata', querydata);

@@ -27,7 +27,8 @@
   import SearchPage from '@/components/SearchPage.vue'
   import Loading from '@/components/Loading.vue'
   import JSZip from 'jszip'
-  //import Imagetable from '@/components/ImageTable.vue'
+  //import { saveAs } from 'file-saver';
+  //import JSZipUtils from 'jszip-utils';
 
   import store from '@/store/index'
   //import Axios from 'axios';
@@ -36,7 +37,8 @@
     data() {
         return {
             images: [],
-            payload: {}
+            payload: {},
+            src: "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
         }
     },
     components: {
@@ -63,6 +65,9 @@
               // store function to get all the image urls with the right names
               store.dispatch('downloadimagespost', {checkedboxes})
               console.log(this.imagedatad);
+              var tocheck = this.imagedatad;
+              console.log(tocheck);
+              /*
               this.images = []
               for (let index = 0; index < this.imagedatad.length; index++) {
                     console.log(this.imagedatad[index]);
@@ -83,42 +88,44 @@
                             this.images.push({'data':objectURL,'name':name});
                         }).catch(console.error)
                     console.log('downloading', url);
-                  /*
-                  Axios.get(this.imagedatad[index]['url'],{
-                            'method': 'GET',
-                            'mode': 'no-cors',
-                            'Access-Control-Allow-Origin': "*"
-                        })
-                        .then(response => {
-                            const blob = new Blob([response.data], { type: 'application/pdf' })
-                            const link = document.createElement('a')
-                            link.href = URL.createObjectURL(blob)
-                            link.download = this.imagedatad[index]['identifier']
-                            link.click()
-                            URL.revokeObjectURL(link.href)
-                        }).catch(console.error)
-                        */
               }
-              var zip = new JSZip();
-              this.images.forEach(function(url){
-                var filename = url["name"];
-                // loading a file and add it in a zip file
-                zip.file(filename, url["data"], {binary:true});
-                count++;
-                if (count == urls.length) {
-                    let tosave = await zip.generateAsync({type:'blob'})
-                    let blub = await new Blob([tosave], {type: "application/zip",});
-                    const link = document.createElement("a");
-                    link.style.display = "none";
-                    link.href = window.URL.createObjectURL(blub);
-                    const fileName = "images.zip"
-                    link.download = fileName;
-                    link.click();
-                    window.URL.revokeObjectURL(link.href);
-                }
-              });
-
-              console.log(this.images);
+                console.log(this.images);
+                */
+                var zip = new JSZip();
+                var count = 0;
+                var zipFilename = "zipFilename.zip";
+                for (let index = 0; index < this.imagedatad.length; index++) {
+                    var filename = this.imagedatad[index]['identifier'];
+                    console.log(this.imagedatad[index]['url']);
+                    // loading a file and add it in a zip file
+                    let config = {
+                        // example url
+                        method: 'GET',
+                        responseType: 'arraybuffer',
+                        mode:'no-cors'
+                    }
+                    fetch(this.imagedatad[index]['url'], config)
+                    .then((response) => {
+                        var bytes = new Uint8Array(response.data);
+                        var binary = bytes.reduce((data, b) => data += String.fromCharCode(b), '');
+                        this.src = "data:image/jpeg;base64," + btoa(binary);
+                        zip.file(filename, this.src, {binary:true});
+                    });
+                    count++;
+                    console.log(count,this.imagedatad.length);
+                    if (count == this.imagedatad.length) {
+                        zip.generateAsync({type:'blob'}).then(function(content) {
+                            //saveAs(content, zipFilename);
+                            const link = document.createElement("a");
+                            link.style.display = "none";
+                            link.href = window.URL.createObjectURL(content);
+                            const fileName = zipFilename;
+                            link.download = fileName;
+                            link.click();
+                            window.URL.revokeObjectURL(link.href);
+                        });
+                    }
+                }      
           },
       }
   }

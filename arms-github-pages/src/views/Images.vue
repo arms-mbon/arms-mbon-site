@@ -70,19 +70,15 @@
                     fetch(url, {
                         mode:'no-cors'
                     })
-                        .then(response => {
-                            const blob = new Blob([response.data])
-                            this.image.push({
-                                'data':blob,
-                                'name':name
-                            })
-                            /*
-                            const link = document.createElement('a')
-                            link.href = URL.createObjectURL(blob)
-                            link.download = this.imagedatad[index]['identifier']
-                            link.click()
-                            URL.revokeObjectURL(link.href)
-                            */
+                        .then(res => res.blob()) // Gets the response and returns it as a blob
+                        .then(blob => {
+                            // Here's where you get access to the blob
+                            // And you can use it for whatever you want
+                            // Like calling ref().put(blob)
+                            console.log(blob);
+                            // Here, I use it to make an image appear on the page
+                            let objectURL = URL.createObjectURL(blob);
+                            this.images.push({'data':objectURL,'name':name});
                         }).catch(console.error)
                     console.log('downloading', url);
                   /*

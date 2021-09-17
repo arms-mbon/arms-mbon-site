@@ -26,6 +26,7 @@
   import { defineAsyncComponent } from 'vue'
   import SearchPage from '@/components/SearchPage.vue'
   import Loading from '@/components/Loading.vue'
+  import JSZip from 'jszip'
   //import Imagetable from '@/components/ImageTable.vue'
 
   import store from '@/store/index'
@@ -62,6 +63,7 @@
               // store function to get all the image urls with the right names
               store.dispatch('downloadimagespost', {checkedboxes})
               console.log(this.imagedatad);
+              this.images = []
               for (let index = 0; index < this.imagedatad.length; index++) {
                     console.log(this.imagedatad[index]);
                     let url = this.imagedatad[index]['url'];
@@ -97,6 +99,25 @@
                         }).catch(console.error)
                         */
               }
+              var zip = new JSZip();
+              this.images.forEach(function(url){
+                var filename = url["name"];
+                // loading a file and add it in a zip file
+                zip.file(filename, url["data"], {binary:true});
+                count++;
+                if (count == urls.length) {
+                    let tosave = await zip.generateAsync({type:'blob'})
+                    let blub = await new Blob([tosave], {type: "application/zip",});
+                    const link = document.createElement("a");
+                    link.style.display = "none";
+                    link.href = window.URL.createObjectURL(blub);
+                    const fileName = "images.zip"
+                    link.download = fileName;
+                    link.click();
+                    window.URL.revokeObjectURL(link.href);
+                }
+              });
+
               console.log(this.images);
           },
       }

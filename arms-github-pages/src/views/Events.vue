@@ -37,9 +37,8 @@
                 </div>
             </div>
 
-            <button class="accordion">  <i class="fas fa-camera"></i> Images</button>
-            <div class="panel">
-                <!-- <p>{{event}}</p> -->
+            <button class="accordion" @click="showimage = true">  <i class="fas fa-camera"></i> Images</button>
+            <div v-if="showimage" class="panel">
                 <div class="gallery">
                     <div class="gallery-panel" v-for="item in event.files" :key="item">
                         <suspense>
@@ -56,9 +55,44 @@
             </div>
             <button class="accordion"><i class="fas fa-dna"></i> Sequences</button>
             <div class="panel">
-                <div v-for="item in event.sequences" :key="item">
-                    <p>{{item.sequence}}</p>
+                <br>
+                <div class="container" style="overflow: scroll;overflow-x: hidden;max-height: 30vh">
+                    <table class="table table-striped">
+                        <thead style="position: sticky;top: 0" class="table-dark">
+                            <tr>
+                                <td>
+                                    sequence id
+                                </td>
+                                <td>
+                                    length
+                                </td>
+                                <td>
+                                    forward primer
+                                </td>
+                                <td>
+                                    reverse primer
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="item in event.sequences" :key="item">
+                                <td>
+                                    <a :href="'#' + item.id"><router-link :to='"/sequences/"+ item.id'>{{item.id}}</router-link></a>
+                                </td>
+                                <td>
+                                    {{item.sequence.length}}
+                                </td>
+                                <td>
+                                    {{item.forw_primer_sequence}}
+                                </td>
+                                <td>
+                                    {{item.rev_primer_sequence}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
+                <br>
             </div>
         </div>
         <div v-else>
@@ -75,6 +109,11 @@
 
     //export with all logic for vue page
     export default {
+        data () {
+            return {
+                showimage:false
+            }
+        },
         components: {
             AsyncImage: defineAsyncComponent(() => import('@/components/Image.vue')),
             Loading

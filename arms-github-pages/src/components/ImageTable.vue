@@ -23,7 +23,7 @@
             <tbody>
             <template v-for="item in allevents">
                 <template v-for="files in item.files" :key="files.id">
-                    <tr :name="files.identifier">
+                    <tr @click="showimagee(files.id)">
                         <td>
                             <input type="checkbox" :id='files.id' :name='files.id'>
                         </td>
@@ -33,11 +33,25 @@
                         <td>
                             <a :href="'#' + item.id"><router-link :to='"/event/"+ item.id'>{{item.description}}</router-link></a>
                         </td>
-                        <td>
+                        <td >
                             {{files.id}}
                         </td>
                         <td>
                             <a :href="'' + files.download_link" target="_blank">{{files.identifier}}</a>
+                        </td>
+                    </tr>
+                    <tr v-if="showimage == files.id">
+                        <td colspan="5">
+                            <div style = "display: flex;justify-content: center;">
+                                <suspense>
+                                    <template #default>
+                                        <AsyncImage :imageurl="files.download_link" :imagename="files.identifier"></AsyncImage>
+                                    </template>
+                                    <template #fallback>
+                                        <Loading></Loading>
+                                    </template>
+                                </suspense>
+                            </div>
                         </td>
                     </tr>
                 </template>
@@ -48,10 +62,21 @@
 </template>
 
 <script>
+import { defineAsyncComponent } from 'vue'
 import store from '@/store/index'
+import Loading from '@/components/Loading.vue'
 
 export default {
     name:"Imagetable",
+    data () {
+        return {
+            showimage:false
+        }
+    },
+    components: {
+        AsyncImage: defineAsyncComponent(() => import('@/components/Image.vue')),
+        Loading
+    },
     computed: {
           alldata() {
               return store.state.alldata
@@ -83,6 +108,9 @@ export default {
                   checkbox.checked = ischecked;
               }
           },
+          showimagee(id){
+              this.showimage = id;
+          }
       },
       watch: {
             $route() {
@@ -97,5 +125,8 @@ export default {
 .thead th{
     position:sticky;
     top: 0 ;
+}
+tr:hover {
+    background-color:rgb(219, 219, 219);
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
     <div class="image">
         <p style="border: 1px solid grey"> {{imagename}} </p>
-        <a :href="imageurl"  :alt="imagename" target="_blank"><img :src="imageurl"></a>
+        <a :href="imageurl"  :alt="imagename" target="_blank"><img :src="imageurl" :id="imageurl"></a>
     </div>
 </template>
 
@@ -37,6 +37,7 @@ p {
 }
 img {
     transition: transform .1s; /* Animation */
+    height: 20vw;
 }
 img:hover {
     transform: scale(1.05);

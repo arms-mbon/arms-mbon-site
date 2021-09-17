@@ -32,6 +32,12 @@
   //import Axios from 'axios';
   //import { saveAs } from 'file-saver';
   export default {
+    data() {
+        return {
+            images: [],
+            payload: {}
+        }
+    },
     components: {
         SearchPage,
         AsyncImageTable: defineAsyncComponent(() => import('@/components/ImageTable.vue')),
@@ -57,21 +63,29 @@
               store.dispatch('downloadimagespost', {checkedboxes})
               console.log(this.imagedatad);
               for (let index = 0; index < this.imagedatad.length; index++) {
-                  console.log(this.imagedatad[index]);
+                    console.log(this.imagedatad[index]);
                     let url = this.imagedatad[index]['url'];
+                    let name = this.imagedatad[index]['identifier']
+                    
                     fetch(url, {
                         mode:'no-cors'
                     })
                         .then(response => {
                             const blob = new Blob([response.data])
+                            this.image.push({
+                                'data':blob,
+                                'name':name
+                            })
+                            /*
                             const link = document.createElement('a')
                             link.href = URL.createObjectURL(blob)
                             link.download = this.imagedatad[index]['identifier']
                             link.click()
                             URL.revokeObjectURL(link.href)
+                            */
                         }).catch(console.error)
                     console.log('downloading', url);
-                    /*
+                  /*
                   Axios.get(this.imagedatad[index]['url'],{
                             'method': 'GET',
                             'mode': 'no-cors',
@@ -87,14 +101,11 @@
                         }).catch(console.error)
                         */
               }
-          }
+              console.log(this.images);
+          },
       }
   }
 </script>
 
 <style scoped>
-    .thead th{
-        position:sticky;
-        top: 0 ;
-    }
 </style>

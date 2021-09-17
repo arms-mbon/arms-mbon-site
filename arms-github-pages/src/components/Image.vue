@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="image">
         <p style="border: 1px solid grey"> {{imagename}} </p>
         <a :href="imageurl"  :alt="imagename" target="_blank"><img :src="imageurl"></a>
     </div>
@@ -32,7 +32,13 @@ export default {
     border-radius: 0.75rem;
 }
 p {
-    font-size: 2vmin;
+    font-size: 1.25vmin;
     text-align: center;
+}
+img {
+    transition: transform .1s; /* Animation */
+}
+img:hover {
+    transform: scale(1.05);
 }
 </style>

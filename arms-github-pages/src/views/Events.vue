@@ -2,7 +2,7 @@
     <div>
         <div v-if="event">
             <br>
-            <button class="accordion active">General</button>
+            <button class="accordion active"><i class="fas fa-info"></i> General</button>
             <div class="panel" style="max-height:100%;">
                 <br>
                 <div class="container">
@@ -37,7 +37,7 @@
                 </div>
             </div>
 
-            <button class="accordion">Images</button>
+            <button class="accordion">  <i class="fas fa-camera"></i> Images</button>
             <div class="panel">
                 <!-- <p>{{event}}</p> -->
                 <div class="gallery">
@@ -54,7 +54,7 @@
                     </div>
                 </div>
             </div>
-            <button class="accordion">Sequences</button>
+            <button class="accordion"><i class="fas fa-dna"></i> Sequences</button>
             <div class="panel">
                 <div v-for="item in event.sequences" :key="item">
                     <p>{{item.sequence}}</p>

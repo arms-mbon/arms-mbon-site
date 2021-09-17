@@ -17,28 +17,30 @@
                     </th>
                     <th>
                         name image
-                    </th>
+                    </th>  
                 </tr>
             </thead>
             <tbody>
             <template v-for="item in allevents">
-                <tr v-for="files in item.files" :key="files.id">
-                    <td>
-                        <input type="checkbox" :id='files.id' :name='files.id'>
-                    </td>
-                    <td>
-                        {{item.id}}
-                    </td>
-                    <td>
-                        <a :href="'#' + item.id"><router-link :to='"/event/"+ item.id'>{{item.description}}</router-link></a>
-                    </td>
-                    <td>
-                        {{files.id}}
-                    </td>
-                    <td>
-                        <a :href="'' + files.download_link" target="_blank">{{files.identifier}}</a>
-                    </td>
-                </tr>
+                <template v-for="files in item.files" :key="files.id">
+                    <tr :name="files.identifier">
+                        <td>
+                            <input type="checkbox" :id='files.id' :name='files.id'>
+                        </td>
+                        <td>
+                            {{item.id}}
+                        </td>
+                        <td>
+                            <a :href="'#' + item.id"><router-link :to='"/event/"+ item.id'>{{item.description}}</router-link></a>
+                        </td>
+                        <td>
+                            {{files.id}}
+                        </td>
+                        <td>
+                            <a :href="'' + files.download_link" target="_blank">{{files.identifier}}</a>
+                        </td>
+                    </tr>
+                </template>
             </template>
             </tbody>
         </table>
@@ -91,5 +93,9 @@ export default {
 
 </script>
 
-<style>
+<style scoped>
+.thead th{
+    position:sticky;
+    top: 0 ;
+}
 </style>

@@ -8,21 +8,21 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#"><router-link to="/about">About</router-link></a>
+            <a class="nav-link active" aria-current="page" href="#" ><router-link to="/about"><i class="fas fa-question-circle"></i></router-link></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#"><router-link to="/contact">Contact</router-link></a>
+            <a class="nav-link" href="#"><router-link to="/contact"> <i class="fas fa-address-card"></i></router-link></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#"><router-link to="/event">Events</router-link></a>
+            <a class="nav-link" href="#"><router-link to="/event"><i class="fas fa-sitemap"></i></router-link></a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Files
+              <i class="fas fa-folder-open" style="color: #42b983;"></i>
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item"><router-link to="/images">Images</router-link></a></li>
-              <li><a class="dropdown-item"><router-link to="/sequences">Sequences</router-link></a></li>
+              <li><a class="dropdown-item"><i class="fas fa-images"></i> <router-link to="/images">Images</router-link></a></li>
+              <li><a class="dropdown-item"><i class="fas fa-dna"></i> <router-link to="/sequences">Sequences</router-link></a></li>
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item" href="#">Something else here</a></li>
             </ul>
@@ -64,5 +64,6 @@ li {
 }
 a {
   color: #42b983;
+  text-decoration: none;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-    <div class="image">
+    <div class="image"  :style="cssprops">
         <p style="border: 1px solid grey"> {{imagename}} </p>
         <a :href="imageurl"  :alt="imagename" target="_blank"><img :src="imageurl" :id="imageurl"></a>
     </div>
@@ -10,7 +10,15 @@ export default {
     name:"Image",
     props: {
         imageurl: String,
-        imagename: String
+        imagename: String,
+        imageheight: String
+    },
+    computed: {
+        cssprops(){
+            return{
+                '--image-height': this.imageheight + "vw"
+            }
+        }
     }
   }
 </script>
@@ -37,7 +45,7 @@ p {
 }
 img {
     transition: transform .1s; /* Animation */
-    height: 20vw;
+    height: var(--image-height);
 }
 img:hover {
     transform: scale(1.05);

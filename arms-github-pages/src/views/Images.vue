@@ -110,21 +110,23 @@
                         var binary = bytes.reduce((data, b) => data += String.fromCharCode(b), '');
                         this.src = "data:image/jpeg;base64," + btoa(binary);
                         zip.file(filename, this.src, {binary:true});
-                    });
-                    count++;
-                    console.log(count,this.imagedatad.length);
-                    if (count == this.imagedatad.length) {
-                        zip.generateAsync({type:'blob'}).then(function(content) {
-                            //saveAs(content, zipFilename);
-                            const link = document.createElement("a");
-                            link.style.display = "none";
-                            link.href = window.URL.createObjectURL(content);
-                            const fileName = zipFilename;
-                            link.download = fileName;
-                            link.click();
-                            window.URL.revokeObjectURL(link.href);
-                        });
-                    }
+                    }).then(() => {
+                        count++;
+                        console.log(count,this.imagedatad.length);
+                        if (count == this.imagedatad.length) {
+                            console.log(zip)
+                            zip.generateAsync({type:'blob'}).then(function(content) {
+                                //saveAs(content, zipFilename);
+                                const link = document.createElement("a");
+                                link.style.display = "none";
+                                link.href = window.URL.createObjectURL(content);
+                                const fileName = zipFilename;
+                                link.download = fileName;
+                                link.click();
+                                window.URL.revokeObjectURL(link.href);
+                            });
+                        }
+                    })
                 }      
           },
       }

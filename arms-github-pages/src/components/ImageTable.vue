@@ -5,6 +5,9 @@
                 <thead style="position: sticky;top: 0" class="table-dark">
                     <tr>
                         <th>
+                            Preview
+                        </th>
+                        <th>
                             <input type="checkbox" id="allimages" name="allimages" @click="checkallboxes">
                         </th>
                         <th>
@@ -24,7 +27,12 @@
                 <tbody>
                 <template v-for="item in allevents">
                     <template v-for="files in item.files" :key="files.id">
-                        <tr @click="showimagee(files.id)">
+                        <tr >
+                            <td>
+                                <button @click="showimagee(files.id)">
+                                    <i class="fas fa-eye fa-LG"></i>
+                                </button>
+                            </td>
                             <td>
                                 <input type="checkbox" :id='files.id' :name='files.id'>
                             </td>
@@ -42,7 +50,7 @@
                             </td>
                         </tr>
                         <tr v-if="showimage == files.id">
-                            <td colspan="5">
+                            <td colspan="6">
                                 <div style = "display: flex;justify-content: center;">
                                     <suspense>
                                         <template #default>

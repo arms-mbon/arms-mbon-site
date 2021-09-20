@@ -92,6 +92,7 @@
                 console.log(this.images);
                 */
                 var zip = new JSZip();
+                var img = zip.folder("images");
                 var count = 0;
                 var zipFilename = "zipFilename.zip";
                 for (let index = 0; index < this.imagedatad.length; index++) {
@@ -109,7 +110,7 @@
                         var bytes = new Uint8Array(response.data);
                         var binary = bytes.reduce((data, b) => data += String.fromCharCode(b), '');
                         this.src = "data:image/jpeg;base64," + btoa(binary);
-                        zip.file(filename, this.src, {binary:true});
+                        img.file(filename, this.src, {binary:true});
                     }).then(() => {
                         count++;
                         console.log(count,this.imagedatad.length);

@@ -11,7 +11,7 @@ export default {
     props: {
         imageurl: String,
         imagename: String,
-        imageheight: String
+        imageheight: Number
     },
     computed: {
         cssprops(){

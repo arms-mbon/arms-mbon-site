@@ -52,7 +52,27 @@
           },
       },
       methods: {
-          downloadImages() {
+          getimage: async(url) => {
+              console.log("getting data url:", url)
+              let config = {
+                        // example url
+                        method: 'GET',
+                        responseType: 'arraybuffer',
+                        mode:'no-cors'
+                    }
+            
+              fetch(url, config).then((result) =>{
+                  console.log(result)
+              }).then(() => {
+                  const cacheName = url.split('/').at(-1)
+                  console.log(cacheName);
+                  caches.open(cacheName).then(function(cache) {
+                    // Do something with your cache
+                    console.log(cache);
+                  });
+              })
+          },
+          async downloadImages() {
               //get all the ticked boxes
               var checkedboxes = []
               var checkboxes = document.querySelectorAll('input[type="checkbox"]');
@@ -64,7 +84,6 @@
               console.log(checkedboxes);
               // store function to get all the image urls with the right names
               store.dispatch('downloadimagespost', {checkedboxes})
-              console.log(this.imagedatad);
               var tocheck = this.imagedatad;
               console.log(tocheck);
               /*
@@ -105,10 +124,17 @@
                         responseType: 'arraybuffer',
                         mode:'no-cors'
                     }
+
+                    await this.getimage(this.imagedatad[index]['url'])
+                    console.log("current image:",this.currentimage);
+
                     fetch(this.imagedatad[index]['url'], config)
                     .then((response) => {
+                        console.log(response);
                         var bytes = new Uint8Array(response.data);
+                        console.log(bytes);
                         var binary = bytes.reduce((data, b) => data += String.fromCharCode(b), '');
+                        
                         this.src = "data:image/jpeg;base64," + btoa(binary);
                         img.file(filename, this.src, {binary:true});
                     }).then(() => {

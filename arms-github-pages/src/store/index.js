@@ -1,5 +1,6 @@
 import { createStore } from 'vuex'
 import sourceData from '@/plutoF.json'
+import JSZip from 'jszip'
 
 export default createStore({
   state: {
@@ -7,7 +8,8 @@ export default createStore({
     allevents:[],
     allallevents:[],
     imagedatad:[],
-    generalinfoevent:{}
+    generalinfoevent:{},
+    toservefile:{}
   },
   mutations: { //only synchronous code  
       allEvents(state) {
@@ -118,11 +120,29 @@ export default createStore({
       console.log(images_data);
       state.imagedatad = images_data
       return state.imagedatad
+    },
+    addtozipfile(state,file,name){
+      let zipfile = state.toservefile;
+      zipfile.file(name, file, {binary:true});
+    },
+    makezip(state){
+      state.toservefile = new JSZip();
     }
   },
   actions: { // actions are methods that cant change data in a state but can have ansync code in it
     downloadimagespost(context,imagesids){
       context.commit('getimagesdata', {imagesids})
+    },
+    addfilezip(context,file,filename){
+      context.commit('',{file,filename})
+    },
+    makezipfile(context){
+      context.commit('makezip')
+    },
+    async sleep(ms){
+      console.log('making machine sleep');
+      await new Promise(r => setTimeout(r, ms));
+      console.log('sleep done');
     }
   },
   modules: {

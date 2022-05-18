@@ -1,5 +1,8 @@
 // vue.config.js file to be place in the root of your repository
 
 module.exports = {
-    publicPath: '/arms-mbon-site/'
+    publicPath: '/arms-mbon-site/',
+    devServer: {
+      proxy: "https://github.com"
+    }
   }

@@ -33,6 +33,9 @@
   import store from '@/store/index'
   //import Axios from 'axios';
   //import { saveAs } from 'file-saver';
+
+  // make all functions that will be async here 
+
   export default {
     data() {
         return {
@@ -52,26 +55,6 @@
           },
       },
       methods: {
-          getimage: async(url) => {
-              console.log("getting data url:", url)
-              let config = {
-                        // example url
-                        method: 'GET',
-                        responseType: 'arraybuffer',
-                        mode:'no-cors'
-                    }
-            
-              fetch(url, config).then((result) =>{
-                  console.log(result)
-              }).then(() => {
-                  const cacheName = url.split('/').at(-1)
-                  console.log(cacheName);
-                  caches.open(cacheName).then(function(cache) {
-                    // Do something with your cache
-                    console.log(cache);
-                  });
-              })
-          },
           async downloadImages() {
               //get all the ticked boxes
               var checkedboxes = []
@@ -111,49 +94,11 @@
                 console.log(this.images);
                 */
                 var zip = new JSZip();
-                var img = zip.folder("images");
-                var count = 0;
-                var zipFilename = "zipFilename.zip";
+                console.log(zip);
                 for (let index = 0; index < this.imagedatad.length; index++) {
                     var filename = this.imagedatad[index]['identifier'];
-                    console.log(this.imagedatad[index]['url']);
-                    // loading a file and add it in a zip file
-                    let config = {
-                        // example url
-                        method: 'GET',
-                        responseType: 'arraybuffer',
-                        mode:'no-cors'
-                    }
-
-                    await this.getimage(this.imagedatad[index]['url'])
+                    console.log(this.imagedatad[index]['url'], filename);
                     console.log("current image:",this.currentimage);
-
-                    fetch(this.imagedatad[index]['url'], config)
-                    .then((response) => {
-                        console.log(response);
-                        var bytes = new Uint8Array(response.data);
-                        console.log(bytes);
-                        var binary = bytes.reduce((data, b) => data += String.fromCharCode(b), '');
-                        
-                        this.src = "data:image/jpeg;base64," + btoa(binary);
-                        img.file(filename, this.src, {binary:true});
-                    }).then(() => {
-                        count++;
-                        console.log(count,this.imagedatad.length);
-                        if (count == this.imagedatad.length) {
-                            console.log(zip)
-                            zip.generateAsync({type:'blob'}).then(function(content) {
-                                //saveAs(content, zipFilename);
-                                const link = document.createElement("a");
-                                link.style.display = "none";
-                                link.href = window.URL.createObjectURL(content);
-                                const fileName = zipFilename;
-                                link.download = fileName;
-                                link.click();
-                                window.URL.revokeObjectURL(link.href);
-                            });
-                        }
-                    })
                 }      
           },
       }

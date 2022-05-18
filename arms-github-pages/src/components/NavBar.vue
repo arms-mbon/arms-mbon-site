@@ -8,13 +8,13 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#" ><router-link to="/about"><i class="fas fa-question-circle"></i></router-link></a>
+            <a class="nav-link active" aria-current="page" href="#" ><router-link to="/about"><i class="fas fa-question-circle"></i> About</router-link></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#"><router-link to="/contact"> <i class="fas fa-address-card"></i></router-link></a>
+            <a class="nav-link" href="#"><router-link to="/contact"> <i class="fas fa-address-card"></i> Contacts</router-link></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#"><router-link to="/event"><i class="fas fa-sitemap"></i></router-link></a>
+            <a class="nav-link" href="#"><router-link to="/event"><i class="fas fa-sitemap"></i> Events</router-link></a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
